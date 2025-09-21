@@ -136,7 +136,7 @@ export class NineGridGenerator {
 
       // 加载所有角色图片
       const characterImagePromises = this.characterImages.map((filename) =>
-        this.loadImage(`/images/${filename}`)
+        this.loadImage(`${import.meta.env.BASE_URL}images/${filename}`)
       );
       const characterImages = await Promise.all(characterImagePromises);
 
@@ -224,7 +224,7 @@ export class NineGridGenerator {
    * 获取可用的角色图片列表
    */
   getCharacterImages(): string[] {
-    return this.characterImages.map((filename) => `/images/${filename}`);
+    return this.characterImages.map((filename) => `${import.meta.env.BASE_URL}images/${filename}`);
   }
 
   /**

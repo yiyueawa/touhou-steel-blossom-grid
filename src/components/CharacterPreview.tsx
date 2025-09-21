@@ -50,7 +50,7 @@ const CharacterPreview: React.FC<CharacterPreviewProps> = ({ onImageLoad }) => {
               }}
             >
               <Image
-                src={`/images/${character.filename}`}
+                src={`${import.meta.env.BASE_URL}images/${character.filename}`}
                 alt={character.name}
                 style={{
                   width: "100%",
