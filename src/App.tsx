@@ -1,5 +1,5 @@
 import { ConfigProvider, App as AntApp } from "antd";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import zhCN from "antd/locale/zh_CN";
 import jaJP from "antd/locale/ja_JP";
