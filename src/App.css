@@ -104,3 +104,42 @@
     margin: 8px !important;
   }
 }
+
+/* 消息提示样式优化 */
+.ant-message {
+  z-index: 9999 !important;
+}
+
+.ant-message-notice {
+  margin-bottom: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.ant-message-notice-content {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+
+/* 不同类型消息的颜色优化 */
+.ant-message-success .ant-message-notice-content {
+  background: rgba(246, 255, 237, 0.95) !important;
+  border: 1px solid rgba(183, 235, 143, 0.5) !important;
+}
+
+.ant-message-error .ant-message-notice-content {
+  background: rgba(255, 241, 240, 0.95) !important;
+  border: 1px solid rgba(255, 163, 158, 0.5) !important;
+}
+
+.ant-message-warning .ant-message-notice-content {
+  background: rgba(255, 251, 230, 0.95) !important;
+  border: 1px solid rgba(255, 229, 143, 0.5) !important;
+}
+
+.ant-message-info .ant-message-notice-content {
+  background: rgba(230, 247, 255, 0.95) !important;
+  border: 1px solid rgba(145, 213, 255, 0.5) !important;
+}
