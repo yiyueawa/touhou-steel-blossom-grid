@@ -6,7 +6,6 @@ import {
   Typography,
   Row,
   Col,
-  Progress,
   Image,
   Space,
   message,
@@ -25,6 +24,7 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const [processing, setProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [statusText, setStatusText] = useState<string>("");
   const [resultImage, setResultImage] = useState<string>("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const generatorRef = useRef<NineGridGenerator>(new NineGridGenerator());
@@ -46,33 +46,24 @@ const Home: React.FC = () => {
     message.info(t("uploadStarted"));
     setProcessing(true);
     setProgress(0);
+    setStatusText(t("statusReady"));
 
     try {
-      // 模拟进度更新
-      const progressInterval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 90) {
-            clearInterval(progressInterval);
-            return 90;
-          }
-          return prev + 10;
-        });
-      }, 150);
-
-      // 生成九宫格
-      message.loading(t("generating"), 0.5);
-      const dataUrl = await generatorRef.current.generateNineGrid(file);
+      // 使用文字状态回调
+      const dataUrl = await generatorRef.current.generateNineGrid(
+        file,
+        (progress, status) => {
+          setProgress(progress);
+          setStatusText(t(status));
+        }
+      );
 
       // 检查生成结果
       if (!dataUrl || dataUrl.length < 100) {
         throw new Error("Generated image data is invalid");
       }
 
-      clearInterval(progressInterval);
-      setProgress(100);
-
       setResultImage(dataUrl);
-      message.destroy(); // 清除loading消息
       message.success({
         content: t("uploadSuccess"),
         duration: 3,
@@ -102,7 +93,10 @@ const Home: React.FC = () => {
       });
     } finally {
       setProcessing(false);
-      setTimeout(() => setProgress(0), 1500);
+      setTimeout(() => {
+        setProgress(0);
+        setStatusText("");
+      }, 1500);
     }
   };
 
@@ -258,19 +252,37 @@ const Home: React.FC = () => {
             </Dragger>
 
             {processing && (
-              <div style={{ marginTop: 16 }}>
-                <Progress
-                  percent={progress}
-                  status="active"
-                  strokeColor={{
-                    "0%": "#6f42c1",
-                    "100%": "#e83e8c",
+              <div style={{ marginTop: 16, textAlign: "center" }}>
+                <div
+                  style={{
+                    padding: "16px",
+                    background:
+                      "linear-gradient(135deg, #f6f9ff 0%, #f1f5ff 100%)",
+                    borderRadius: "8px",
+                    border: "1px solid #e6f4ff",
                   }}
-                  className="progress-animated"
-                />
-                <p style={{ textAlign: "center", marginTop: 8 }}>
-                  <Spin size="small" /> {t("processing")}
-                </p>
+                >
+                  <Spin size="small" style={{ marginRight: 8 }} />
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#1890ff",
+                    }}
+                  >
+                    {statusText}
+                  </span>
+                  <div
+                    style={{
+                      marginTop: "8px",
+                      fontSize: "12px",
+                      color: "#666",
+                      opacity: 0.8,
+                    }}
+                  >
+                    {progress}% 完成
+                  </div>
+                </div>
               </div>
             )}
           </Card>

@@ -124,21 +124,31 @@ export class NineGridGenerator {
   /**
    * 生成九宫格
    */
-  async generateNineGrid(userImageFile: File): Promise<string> {
+  async generateNineGrid(
+    userImageFile: File, 
+    onProgress?: (progress: number, status: string) => void
+  ): Promise<string> {
     try {
+      onProgress?.(5, 'statusReady');
+      
       // 清空画布
       this.ctx.clearRect(0, 0, this.config.gridSize, this.config.gridSize);
       this.ctx.fillStyle = "#ffffff";
       this.ctx.fillRect(0, 0, this.config.gridSize, this.config.gridSize);
 
+      onProgress?.(15, 'statusLoadingUserImage');
+
       // 加载用户图片
       const userImage = await this.loadImage(userImageFile);
+      onProgress?.(35, 'statusLoadingCharacters');
 
       // 加载所有角色图片
       const characterImagePromises = this.characterImages.map((filename) =>
         this.loadImage(`${import.meta.env.BASE_URL}images/${filename}`)
       );
+      
       const characterImages = await Promise.all(characterImagePromises);
+      onProgress?.(60, 'statusGeneratingGrid');
 
       // 创建九宫格布局
       const gridLayout: (HTMLImageElement | null)[] = new Array(9).fill(null);
@@ -158,6 +168,8 @@ export class NineGridGenerator {
         }
       }
 
+      onProgress?.(75, 'statusDrawing');
+
       // 绘制所有图片
       gridLayout.forEach((img, position) => {
         if (img) {
@@ -165,11 +177,18 @@ export class NineGridGenerator {
         }
       });
 
+      onProgress?.(90, 'statusFinalizing');
+
       // 添加网格线（可选）
       this.drawGridLines();
 
+      onProgress?.(98, 'statusCompleted');
+
       // 返回生成的图片数据URL
-      return this.canvas.toDataURL("image/jpeg", 0.9);
+      const result = this.canvas.toDataURL("image/jpeg", 0.9);
+      onProgress?.(100, 'statusCompleted');
+      
+      return result;
     } catch (error) {
       console.error("生成九宫格时出错:", error);
       throw new Error("生成九宫格失败，请重试");
@@ -224,7 +243,9 @@ export class NineGridGenerator {
    * 获取可用的角色图片列表
    */
   getCharacterImages(): string[] {
-    return this.characterImages.map((filename) => `${import.meta.env.BASE_URL}images/${filename}`);
+    return this.characterImages.map(
+      (filename) => `${import.meta.env.BASE_URL}images/${filename}`
+    );
   }
 
   /**
