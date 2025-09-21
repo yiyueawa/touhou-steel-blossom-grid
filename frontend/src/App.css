@@ -1,0 +1,106 @@
+/* App.css - React组件样式 */
+
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 渐变文字效果 */
+.gradient-text {
+  background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 卡片悬停效果 */
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* 九宫格预览动画 */
+.grid-preview {
+  transition: all 0.3s ease;
+}
+
+.grid-preview:hover {
+  transform: scale(1.05);
+}
+
+/* 上传区域样式 */
+.upload-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(111, 66, 193, 0.1), transparent);
+  transform: rotate(-45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.upload-container:hover::before {
+  opacity: 1;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+}
+
+/* 进度条动画 */
+.progress-animated .ant-progress-bg {
+  background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+  animation: progressGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes progressGlow {
+  0% { box-shadow: 0 0 5px rgba(111, 66, 193, 0.5); }
+  100% { box-shadow: 0 0 20px rgba(232, 62, 140, 0.8); }
+}
+
+/* 结果展示动画 */
+.result-image {
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.result-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* 语言切换按钮 */
+.language-selector {
+  transition: all 0.3s ease;
+}
+
+.language-selector:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.1);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding: 12px !important;
+  }
+  
+  .mobile-margin {
+    margin: 8px !important;
+  }
+}
