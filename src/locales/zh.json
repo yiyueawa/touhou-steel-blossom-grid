@@ -41,5 +41,11 @@
     "footer": {
         "developedBy": "由异月（99%）和AI（1%）合作开发",
         "contact": "联系方式：QQ 3526869976"
+    },
+    "acknowledgments": {
+        "title": "致谢",
+        "characters": "感谢东方花硬种的美丽角色们，让这个九宫格生成器变得如此特别！",
+        "flandre": "感谢Flandre Scarlet提供的诡异灵感！",
+        "teacher": "感谢白菜老师提供的美丽测试样例，老师的博丽灵梦cos非常可爱！"
     }
 }

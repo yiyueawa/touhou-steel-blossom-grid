@@ -340,6 +340,59 @@ const Home: React.FC = () => {
           <CharacterPreview />
         </Col>
       </Row>
+
+      {/* 致谢区域 */}
+      <Row style={{ marginTop: 24 }}>
+        <Col span={24}>
+          <Card
+            title={
+              <span style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                🎉 {t("acknowledgments.title")}
+              </span>
+            }
+            className="hover-card"
+            style={{
+              background: 'linear-gradient(135deg, #fff5f5 0%, #fff0f6 100%)',
+              border: '1px solid #ffd6e7'
+            }}
+          >
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <Typography.Paragraph 
+                style={{ 
+                  fontSize: '16px', 
+                  margin: 0,
+                  textAlign: 'center',
+                  color: '#722ed1'
+                }}
+              >
+                {t("acknowledgments.characters")}
+              </Typography.Paragraph>
+              
+              <Typography.Paragraph 
+                style={{ 
+                  fontSize: '14px', 
+                  margin: 0,
+                  textAlign: 'center',
+                  color: '#eb2f96'
+                }}
+              >
+                {t("acknowledgments.flandre")}
+              </Typography.Paragraph>
+              
+              <Typography.Paragraph 
+                style={{ 
+                  fontSize: '14px', 
+                  margin: 0,
+                  textAlign: 'center',
+                  color: '#f759ab'
+                }}
+              >
+                {t("acknowledgments.teacher")}
+              </Typography.Paragraph>
+            </Space>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
