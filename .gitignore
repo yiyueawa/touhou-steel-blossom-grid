@@ -1,12 +1,9 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
+# Node.js
+node_modules/
+
+# Build output
 dist/
-wheels/
-*.egg-info
+build/
 
-# Virtual environments
-.venv
-
-frontend/node_modules/
+# Environment variables
+.env
